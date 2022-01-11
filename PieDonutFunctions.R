@@ -22,15 +22,14 @@ gg_color_hue <- function(n) {
   hcl(h = hues, l = 65, c = 100)[1:n]
 }
 
+#EMT note: this generates a  vector of colors along a color gradient for each of the main colors, starting with main color and number of other colors with length = number of donuts for that main
+#for the first default main color, which is a blue, if there are many donuts, the first subcolor is almost white, which is not ideal for plotting. Use makesubcolor2 (below) to change this behavior.
 
 #' Make subcolors with main colors
 #' @param main character. main colors
 #' @param no number of subcolors
 #' @importFrom ztable gradientColor
 #' @export
-
-#EMT note: this generates a  vector of colors along a color gradient for each of the main colors, starting with main color and number of other colors with length = number of donuts for that main
-#for the first blue default main, if there are many donuts, the first color is almost white => not ideal for plotting. 
 makeSubColor=function(main,no=3){
   result=c()
   for(i in 1:length(main)){
@@ -41,11 +40,12 @@ makeSubColor=function(main,no=3){
 }
 
 #' Make subcolors with main colors EMT EDIT
+# This generates a vector of more donut colors than are needed and excludes the first few so as not to have near-white colors. 
+
 #' @param main character. main colors
 #' @param no number of subcolors
 #' @importFrom ztable gradientColor
 #' @export
-# This does exactly the same, but generates more donut colors than needed and excludes the first few so as not to have near-white colors. 
 makeSubColor2=function(main,no=3){
   result=c()
   for(i in 1:length(main)){
@@ -216,7 +216,7 @@ PieDonut2=function(data,mapping,
   
   #mainCol=gg_color_hue(nrow(df)) #EMT NOTE: no control over colors from original function.
   
-  #Main Cols edit  
+  #EMT Main Cols edit  
   
   if(is.null(pieCols)){
     mainCol=gg_color_hue(nrow(df))
@@ -229,7 +229,7 @@ if(!isFALSE(printpieCols)){
   print("Pie colors are:")
   print(mainCol)
 }
-  #end Main Cols edit
+  #end EMT Main Cols edit
   
   df$radius=r1
   df$radius[df$focus!=0]=df$radius[df$focus!=0]+df$focus[df$focus!=0]
@@ -261,7 +261,7 @@ if(!isFALSE(printpieCols)){
       print(subColor)
     }
     
-    #end edit
+    #end EMT edit
     
     data
     if(!is.null(count)){
